@@ -25,7 +25,7 @@ def file_check(path: str, separator: str = "  -  "):
 def file_empty_check(path: str, separator: str = "  -  "):
     with open(path) as f:
         line = f.read()
-        if line == "":
+        if line == " \n" or len(line) == 0:
             return True
         else:
             return False

@@ -237,8 +237,8 @@ def main(page: ft.Page):
 
         add_button = ft.IconButton(
             icon=ft.icons.ADD,
-            icon_color="white",
-            bgcolor="green",
+            icon_color=maincolor,
+            bgcolor=backgroundcolor,
             on_click=add
         )
 
@@ -351,6 +351,16 @@ def main(page: ft.Page):
             size=35,
             expand=20,
             text_align=ft.TextAlign.CENTER
+        )
+
+        def home(e):
+            starting_window()
+
+        cancel_button = ft.IconButton(
+            icon=ft.icons.HOME,
+            icon_color=backgroundcolor,
+            bgcolor=ft.colors.with_opacity(0.0, '#ff6666'),
+            on_click=home
         )
 
         quest = ft.Column(
@@ -504,6 +514,7 @@ def main(page: ft.Page):
         page.add(
             ft.Row(
                 [
+                    cancel_button,
                     ft.Container(expand=1),
                     counter
                 ]
@@ -523,6 +534,16 @@ def main(page: ft.Page):
 
         questions = list(task.keys())
         points = len(questions)
+
+        def home(e):
+            starting_window()
+
+        cancel_button = ft.IconButton(
+            icon=ft.icons.HOME,
+            icon_color=backgroundcolor,
+            bgcolor=ft.colors.with_opacity(0.0, '#ff6666'),
+            on_click=home
+        )
 
         question_text = ft.Text(
             choice(questions),
@@ -719,6 +740,7 @@ def main(page: ft.Page):
         page.add(
             ft.Row(
                 [
+                    cancel_button,
                     ft.Container(expand=1),
                     counter
                 ]
@@ -872,20 +894,25 @@ def main(page: ft.Page):
                 selected_file.color = "green"
                 start_button.visible = True
                 edit_button.visible = True
+                edit_button.expand = 1
             elif file_path != "Отменено" and file_empty_check(file_path, separator):
                 selected_file.value += " - Выбранный файл"
                 selected_file.color = "green"
+                start_button.visible = False
                 edit_button.visible = True
+                edit_button.expand = 2
             elif file_path == "Отменено":
                 selected_file.value += " - Выберите файл"
                 selected_file.color = "blue"
                 start_button.visible = False
                 edit_button.visible = False
+                edit_button.expand = 1
             else:
                 selected_file.value += " - Файл не подходит"
                 selected_file.color = "red"
                 start_button.visible = False
                 edit_button.visible = False
+                edit_button.expand = 1
 
             page.update()
 
@@ -903,8 +930,8 @@ def main(page: ft.Page):
             expand=2,
             on_click=lambda _: pick_files_dialog.pick_files(
                 allow_multiple=False,
-                allowed_extensions=["txt"],
-                dialog_title="Выберите *.txt файл с курсом"
+                allowed_extensions=["txt", "oq"],
+                dialog_title="Выберите *.oq или *.txt файл с курсом"
             ),
         )
 
@@ -1038,7 +1065,7 @@ def main(page: ft.Page):
             modal=True,
             title=ft.Text("Подсказка"),
             content=ft.Text("Чтобы начать пользоваться программой вам необходимо выбрать файл, "
-                            "содержащий материал для изучения (Тип файла - .txt). "
+                            "содержащий материал для изучения (Тип файла - .oq или .txt). "
                             "Вопрос и ответ в нём должны быть разделены последовательностью символов. "
                             "Например:\nrain  -  дождь\nУказать собственный разделитель можно в настройках "
                             "(По умолчанию:  -  ). Обратите внимание, что файл должен содержать не менее двух "
